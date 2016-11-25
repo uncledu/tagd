@@ -1,0 +1,32 @@
+{
+  "name": "tagd",
+  "version": "0.0.1",
+  "description": "local git tag delete",
+  "main": "lib/index.js",
+  "repository": {
+    "url": "git@github.com:uncledu/tagd.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/uncledu/tagd/issues"
+  },
+  "homepage": "https://github.com/uncledu/tagd#readme",
+  "scripts": {
+    "test": "jasmine",
+    "start": "babel-node src/index.js",
+    "build": "babel src --out-dir lib&&babel test --out-dir spec"
+  },
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-plugin-transform-es2015-destructuring": "^6.19.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-es2015-parameters": "^6.18.0",
+    "babel-plugin-transform-es2015-spread": "^6.8.0",
+    "babel-plugin-transform-strict-mode": "^6.18.0",
+    "jasmine": "^2.5.2",
+    "yargs": "^6.4.0"
+  },
+  "author": "uncledu <uncledu@aliyun.com>",
+  "license": "MIT"
+}
