@@ -1,6 +1,6 @@
 {
   "name": "tagd",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "local git tag delete",
   "main": "lib/index.js",
   "repository": {
