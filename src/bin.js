@@ -3,7 +3,6 @@
 'use strict'
 import TagD from './index'
 import yargs from 'yargs'
-import co from 'co'
 import child_process from 'child_process'
 
 let argv = yargs
