@@ -1,6 +1,6 @@
 {
   "name": "tagd",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "local git tag delete",
   "main": "lib/index.js",
   "repository": {
@@ -15,6 +15,9 @@
     "test": "jasmine",
     "start": "babel-node src/index.js",
     "build": "babel src --out-dir lib&&babel test --out-dir spec"
+  },
+  "bin": {
+    "tagd": "lib/bin.js"
   },
   "dependencies": {
     "babel-cli": "^6.18.0",
