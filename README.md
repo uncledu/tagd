@@ -1,4 +1,4 @@
-# tagd 
+# tagd [![Build Status](https://api.travis-ci.org/uncledu/tagd.svg?branch=master)](https://api.travis-ci.org/uncledu/tagd.svg?branch=master)[![Coverage Status](https://coveralls.io/repos/github/uncledu/tagd/badge.svg?branch=master)](https://coveralls.io/github/uncledu/tagd?branch=master)
 
 ```
 Usage: tagd -c [num]
