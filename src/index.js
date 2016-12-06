@@ -7,11 +7,38 @@ export default class TagD {
     Object.assign(this.opts, opts)
   }
   async getTagList() {
-    return this.getCurrentRepoTag().then(val => {
-      return val.trim().split('\n')
-    }).catch(err => {
-      return JSON.stringify(err)
-    })
+      return this.getCurrentRepoTag().then(val => {
+        return val.trim().split('\n')
+      }).catch(err => {
+        return JSON.stringify(err)
+      })
+    }
+  async removeAllTags() {
+    let taglist = await this.getTagList()
+    return this.removeTagCountingFromBeginner(taglist.length)
+  }
+  async createTag(name) {
+    if (!!name) {
+      let exec = child_process.exec;
+      let cmd = `git tag ${name}`
+      let ct = (cmd) => {
+        return new Promise((resolve, reject) => {
+          exec(cmd, (error, stdout, stderr) => {
+            if (error) {
+              reject(error)
+            }
+            resolve(stdout)
+          })
+        })
+      }
+      return ct(cmd).then((stdout) => {
+        console.log(stdout)
+        return true
+      }).catch(err => {
+        console.log(err)
+        return false
+      })
+    }
   }
   getCurrentRepoTag() {
     let exec = child_process.exec
@@ -24,9 +51,6 @@ export default class TagD {
         resolve(stdout)
       })
     })
-  }
-  async start() {
-    let taglist = await this.getTagList()
   }
   async removeTagByPattern(pattern) {
     let taglist = await this.getTagList()
