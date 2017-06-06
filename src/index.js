@@ -44,7 +44,7 @@ export default class TagD {
         })
     }
   }
-  getCurrentRepoTag() {
+  async getCurrentRepoTag() {
     let exec = child_process.exec
     let cmd = `git tag --sort='version:refname'`
     return new Promise((resolve, reject) => {
@@ -63,18 +63,20 @@ export default class TagD {
     if (taglist.length > 0) {
       taglist.forEach(tag => {
         if (exp.test(tag)) {
-          return this.removeTag(tag)
+          this.removeTag(tag)
         }
       })
     }
     return void 0
   }
+
   async removeTagCountingFromBeginner(count) {
     let taglist = await this.getTagList()
     taglist.slice(0, count).forEach(tag => {
       this.removeTag(tag)
     })
   }
+
   removeTag(tagname) {
     const spawn = child_process.spawn
     const gt = spawn('git', ['tag', '-d', tagname])
@@ -90,5 +92,9 @@ export default class TagD {
     gt.on('close', code => {
       console.log(`child process exited with code ${code}`)
     })
+  }
+
+  async list() {
+    this.getCurrentRepoTag()
   }
 }
