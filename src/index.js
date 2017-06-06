@@ -7,21 +7,23 @@ export default class TagD {
     Object.assign(this.opts, opts)
   }
   async getTagList() {
-      return this.getCurrentRepoTag().then(val => {
+    return this.getCurrentRepoTag()
+      .then(val => {
         return val.trim().split('\n')
-      }).catch(err => {
+      })
+      .catch(err => {
         return JSON.stringify(err)
       })
-    }
+  }
   async removeAllTags() {
     let taglist = await this.getTagList()
     return this.removeTagCountingFromBeginner(taglist.length)
   }
   async createTag(name) {
     if (!!name) {
-      let exec = child_process.exec;
+      let exec = child_process.exec
       let cmd = `git tag ${name}`
-      let ct = (cmd) => {
+      let ct = cmd => {
         return new Promise((resolve, reject) => {
           exec(cmd, (error, stdout, stderr) => {
             if (error) {
@@ -31,18 +33,20 @@ export default class TagD {
           })
         })
       }
-      return ct(cmd).then((stdout) => {
-        console.log(stdout)
-        return true
-      }).catch(err => {
-        console.log(err)
-        return false
-      })
+      return ct(cmd)
+        .then(stdout => {
+          console.log(stdout)
+          return true
+        })
+        .catch(err => {
+          console.log(err)
+          return false
+        })
     }
   }
   getCurrentRepoTag() {
     let exec = child_process.exec
-    let cmd = 'git tag'
+    let cmd = `git tag --sort='version:refname'`
     return new Promise((resolve, reject) => {
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
@@ -54,7 +58,7 @@ export default class TagD {
   }
   async removeTagByPattern(pattern) {
     let taglist = await this.getTagList()
-    if (taglist.length < 1) return void(0)
+    if (taglist.length < 1) return void 0
     let exp = new RegExp(pattern)
     if (taglist.length > 0) {
       taglist.forEach(tag => {
@@ -63,7 +67,7 @@ export default class TagD {
         }
       })
     }
-    return void(0)
+    return void 0
   }
   async removeTagCountingFromBeginner(count) {
     let taglist = await this.getTagList()
@@ -72,20 +76,19 @@ export default class TagD {
     })
   }
   removeTag(tagname) {
-    const spawn = child_process.spawn;
-    const gt = spawn('git', ['tag', '-d', tagname]);
+    const spawn = child_process.spawn
+    const gt = spawn('git', ['tag', '-d', tagname])
 
-    gt.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
-    });
+    gt.stdout.on('data', data => {
+      console.log(`stdout: ${data}`)
+    })
 
-    gt.stderr.on('data', (data) => {
-      console.log(`stderr: ${data}`);
-    });
+    gt.stderr.on('data', data => {
+      console.log(`stderr: ${data}`)
+    })
 
-    gt.on('close', (code) => {
-      console.log(`child process exited with code ${code}`);
-    });
+    gt.on('close', code => {
+      console.log(`child process exited with code ${code}`)
+    })
   }
 }
-
